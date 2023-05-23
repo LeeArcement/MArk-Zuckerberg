@@ -68,7 +68,7 @@
                 //console.log(projectile.rotation);
                 
                 degrees = emitter.rotation;
-                projectile.velocityX = 10; //Math.cos(physikz.degreesToRadians(degrees)) * (projectile.velocityMax + emitter.velocityX || 0);
+                projectile.velocityX = 20; //Math.cos(physikz.degreesToRadians(degrees)) * (projectile.velocityMax + emitter.velocityX || 0);
                 projectile.velocityY = 0; //Math.sin(physikz.degreesToRadians(degrees)) * (projectile.velocityMax + emitter.velocityY || 0);
                 projectile.rotationalVelocity = 0;
                 
