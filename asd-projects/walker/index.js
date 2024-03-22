@@ -1,5 +1,8 @@
 /* global $, sessionStorage */
-
+const BOARDWIDTH = $("#board").width()
+const BOARDHEIGHT = $("#board").height()
+const WALKERWIDTH = $("#walker").width()
+const WALKERHEIGHT = $("#walker").height()
 $(document).ready(runProgram); // wait for the HTML / CSS elements of the page to fully load, then execute runProgram()
   
 function runProgram(){
@@ -12,57 +15,102 @@ function runProgram(){
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   
   // Game Item Objects
-  //walker varible declared so we can mke the walker move.
-var walker = {
-
-  'positionX': 0,
-  'positionY': 0,
-  'speedX': 0,
-  'speedY': 0
-};
+  // these are the walkers controls
+  var KEY = {
+    left: 37,
+    up: 38,
+    right: 39,
+    down: 40,
+  }
+  //this is the game item
+  var walker = {
+    positionX: 0,
+    positionY: 0,
+    speedX: 0,
+    speedY: 0,
+  }
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
-// Changed event to handleKeyDown which is the function with our desired actions.
-// now respinds on a keydown event.
+  $(document).on('keyup', handleKeyUp);
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
   /* 
-  On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
+  On each "tick" of the timer, a new frame is drawn using JavaScript
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    
-
+    repositionGameItem();
+    wallCollision();
+    redrawWalker();
   }
   
   /* 
   Called in response to events.
   */
- //changed the name of the handler function to make it more specific and to match our new helper function.
+ // tells system which key is being pressed and changes speed when it's pressed//
   function handleKeyDown(event) {
-    if (event.which === 13){
-      console.log("enter pressed");
-    } else if(event.which === 39){
-      console.log("right pressed");
-    } else if(event.which === 37){
-      console.log("left pressed");
-    } else if(event.which === 40){
-      console.log("down pressed");
-    } else if(event.which === 38){
-      console.log("up pressed");
+    if (event.which === KEY.left) {
+      walker.speedX = -5
+    } else if (event.which === KEY.up){
+      walker.speedY = -5
+    }else if (event.which === KEY.right){
+      walker.speedX = 5
+    }else if (event.which === KEY.down){
+      walker.speedY = 5
+    }
   }
-}
-//I made hard coded the values of the key numbers so that they would console.log the key pressed.
+// Makes the walker stop moving when released.//
+  function handleKeyUp(event){
+    if (event.which != KEY.left) {
+      walker.speedX = 0;
+      walker.speedY = 0;
+    } else if (event.which != KEY.up){
+      walker.speedY = 0
+      walker.speedX = 0;
+
+    }else if (event.which != KEY.right){
+      walker.speedX = 0;
+      walker.speedY = 0;
+    }else if (event.which != KEY.down){
+      walker.speedY = 0;
+      walker.speedX = 0;
+
+    }
+  }
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-
-  
+  //applys movement to the walker and changes its position//
+  function repositionGameItem() {
+    walker.positionX += walker.speedX;
+    walker.positionY += walker.speedY;
+    console.log(walker.positionX);
+    console.log(walker.positionY);
+  }
+  //tells program when the walker hits a wall so it stops 
+  function wallCollision(){
+    if (walker.positionX < 0){
+      walker.positionX = walker.positionX + 5;
+    }else if (walker.positionX >= 394){
+     walker.positionX = walker.positionX -5;
+    }
+    if (walker.positionY < 0){
+      walker.positionY = walker.positionY + 5;
+    } else if (walker.positionY >= 394){
+      walker.positionY = walker.positionY - 5;
+    }
+  }
+  //remakes the walkers position
+function redrawWalker (){
+  $("#walker").css("left", walker.positionX);
+  $("#walker").css("top", walker.positionY); 
+}
+  // ends game
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
@@ -70,15 +118,4 @@ var walker = {
     // turn off event handlers
     $(document).off();
   }
-  // two new helper functions called.
-  function repositionGameItem(){
-    walker.positionX += walker.speedX; // update the position of the box along the x-axis
-    walker.positionY += walker.speedY; // update the position of the box along the y-axis
-  }
-  function redrawGameItem(){
-    $("#walker").css("left", walker.positionX); 
-    $("#walker").css("top", walker.positionY); 
-    // draw the box in the new location, positionX pixels away from the "left"
-  }
-  
 }
