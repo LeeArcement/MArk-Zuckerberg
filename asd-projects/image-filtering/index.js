@@ -61,7 +61,6 @@ function applyFilterNoBackground(filterFunction){
   for (var i = 0; i < image.length; i++){
     for(var j = 0; j < image[i].length; j++){
       var rgb = image[i][j];
-      var j = 0; j < image[i].length; j++;
       if (rgb !== backColor){
         var rgbNumbers = rgbStringToArray(rgb);
         filterFunction(rgbNumbers);
