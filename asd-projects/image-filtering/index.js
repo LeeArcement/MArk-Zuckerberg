@@ -56,17 +56,17 @@ for (var i = 0; i < image.length; i++){
 
 // TODO 7: Create the applyFilterNoBackground function
 function applyFilterNoBackground(filterFunction){
-  //Applys the filter to any pixel that is not equal to the top left
-  var backgroundColor = image[0][0];
+  //This applies filter to pixels not equal to the top left
+  var backColor = image[0][0];
   for (var i = 0; i < image.length; i++){
     for(var j = 0; j < image[i].length; j++){
-      var rgbString = image[i][j];
-     
-      if (rgbString !== backgroundColor){
-        var rgbNumbers = rgbStringToArray(rgbString);
+      var rgb = image[i][j];
+      var j = 0; j < image[i].length; j++;
+      if (rgb !== backColor){
+        var rgbNumbers = rgbStringToArray(rgb);
         filterFunction(rgbNumbers);
-        rgbString = rgbArrayToString(rgbNumbers);
-        image[i][j] = rgbString;
+        rgb = rgbArrayToString(rgbNumbers);
+        image[i][j] = rgb;
       }
     }
    
@@ -88,14 +88,14 @@ function reddify(redder){
 
 
 // TODO 6: Create more filter functions
-function decreaseBlue (blueyDaDog){
+function decreaseBlue (Blue){
   //removes blue from image when filtered
 
-  blueyDaDog[BLUE] = keepInBounds(BLUE - 50);
+  Blue[BLUE] = keepInBounds(BLUE - 50);
 }
-function increaseGreenByBlue (greeny){
+function increaseGreenByBlue (Green){
   //Adds the blue value to green value
-  greeny[GREEN] = keepInBounds(BLUE + GREEN);
+  Green[GREEN] = keepInBounds(BLUE + GREEN);
 }
 // CHALLENGE code goes below here
 
