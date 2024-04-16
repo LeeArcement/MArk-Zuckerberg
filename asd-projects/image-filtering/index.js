@@ -76,7 +76,7 @@ function applyFilterNoBackground(filterFunction){
 // TODO 5: Create the keepInBounds function
 function keepInBounds(num1){
   //Keeps a value passed in under 255 and over 0
-  return num1 < 0 || num1 > 255 ? "0" : num1;
+  return (num1 < 0) ? 0 : (num1 > 255) ? 255 : num1;
 }
 
 
