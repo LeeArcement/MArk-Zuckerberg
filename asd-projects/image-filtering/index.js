@@ -25,6 +25,8 @@ function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
  // applyFilter(reddify);
   //applyFilter(decreaseBlue);
+  //applyFilterNoBackground(decreaseBlue);
+  //applyFilterNoBackground(reddify);
 
   applyFilter(increaseGreenByBlue);
 
