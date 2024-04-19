@@ -25,7 +25,7 @@ function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
 
   //applyFilter(decreaseBlue);
-  applyFilterNoBackground(increasGreenByBlue);
+  applyFilterNoBackground(increaseGreenByBlue);
   //applyFilterNoBackground(reddify);
 
 
@@ -43,12 +43,14 @@ function applyAndRender() {
 function applyFilter(filterFunction){
   //Iterates over image and applies a filter to each rgb value of image
 for (var i = 0; i < image.length; i++){
+
   for(var j = 0; j < image[i].length; j++){
-    var rgbString = image[i][j];
-    var rgbNumbers = rgbStringToArray(rgbString);
+
+    let rgbString = image[i][j];
+    let rgbNumbers = rgbStringToArray(rgbString);
     filterFunction(rgbNumbers);
-    rgbString = rgbArrayToString(rgbNumbers)
-    image[i][j] = rgbString
+    rgbString = rgbArrayToString(rgbNumbers);
+    image[i][j] = rgbString;
   }
 }
 }
@@ -57,15 +59,14 @@ for (var i = 0; i < image.length; i++){
 // TODO 7: Create the applyFilterNoBackground function
 function applyFilterNoBackground(filterFunction){
   //This applies filter to pixels not equal to the top left
-  var backColor = image[0][0];
-  for (var i = 0; i < image.length; i++){
-    for(var j = 0; j < image[i].length; j++){
-      var rgb = image[i][j];
-      if (rgb !== backColor){
-        var rgbNumbers = rgbStringToArray(rgb);
+  for (var i = 0; i < image.length; i++) {
+    for (var j = 0; j < image[i].length; j++) {
+      let rgbString = image[i][j];
+      if (rgbString !== image[0][0]) {
+        let rgbNumbers = rgbStringToArray(rgbString);
         filterFunction(rgbNumbers);
-        rgb = rgbArrayToString(rgbNumbers);
-        image[i][j] = rgb;
+        rgbString = rgbArrayToString(rgbNumbers);
+        image[i][j] = rgbString;
       }
     }
    
